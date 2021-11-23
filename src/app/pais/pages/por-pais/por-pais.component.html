@@ -1,14 +1,15 @@
 
 
 
-<h2>Por Pais</h2>
+<h2>Por País</h2>
 <hr>
 
 <div class="row">
     <div class="col">
-        <form (ngSubmit)="buscar()" autocomplete="off">
-            <input type="text" name="termino" id="termino" class="form-control" placeholder="Buscar país..." [(ngModel)]="termino">
-        </form>
+        <app-pais-input 
+            (onEnter)="buscar( $event )"
+            (OnDebounce)="sugerencias( $event )"
+            placeholder="Buscar país..."></app-pais-input>
     </div>
 </div>
 
@@ -18,27 +19,8 @@
     No se encontró nada con el término "{{ termino }}"
 </div>
 
-<div class="row">
+<div *ngIf="paises.length > 0" class="row">
     <div class="col">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th> # </th>
-                    <th> Bandera </th>
-                    <th> Nombre </th>
-                    <th> Población </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td> 1 </td>
-                    <td> bandera </td>
-                    <td> nombre </td>
-                    <td><a href="">Ver...</a></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
     </div>
 </div>

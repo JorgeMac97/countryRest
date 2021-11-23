@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Country } from '../interfaces/pais.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,18 @@ export class PaisService {
 
   constructor( private http: HttpClient ) { }
 
-  buscarPais( termino:string ): Observable<any> {
+  buscarPais( termino:string ): Observable<Country[]> {
     const url = `${ this.apiUrl }/name/${ termino }`
-    return this.http.get( url );
+    return this.http.get<Country[]>( url );
   }
 
+  buscarCapital( termino: string ): Observable<Country[]> {
+    const url = `${ this.apiUrl }/capital/${ termino }`
+    return this.http.get<Country[]>( url );
+  }
+
+  getPaisPorId( id: string ): Observable<Country> {
+    const url = `${ this.apiUrl }/alpha/${ id }`
+    return this.http.get<Country>( url );
+  }
 }
